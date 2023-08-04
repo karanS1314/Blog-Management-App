@@ -3,6 +3,8 @@ import Main from "./pages";
 import Signup from "./pages/signup";
 import Signin from "./pages/signin";
 import Logout from "./pages/logout";
+import Post from "./pages/post";
+import Profile from "./pages/profile";
 import { createContext, useReducer, React, useEffect } from "react";
 import { reducer, initialState } from "../src/reducer/useReducer";
 
@@ -14,6 +16,8 @@ const Routing = () => {
       <Route path="/signup" exact element={<Signup />} />
       <Route path="/signin" exact element={<Signin />} />
       <Route path="/logout" exact element={<Logout />} />
+      <Route path="/post/:id" exact element={<Post />} />
+      <Route path="/profile/:id" exact element={<Profile />} />
     </Routes>
   );
 };

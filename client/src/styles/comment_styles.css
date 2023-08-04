@@ -1,0 +1,46 @@
+/* styles.css (can be imported into your main App.js or index.js) */
+
+.comment-container {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.comment-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment {
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.comment-form {
+  margin-top: 10px;
+  display: none;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.comment-submit {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

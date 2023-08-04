@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as LinkR } from "react-router-dom";
 
 export const Container = styled.div`
   background-color: #F8F8F8;
@@ -53,9 +54,11 @@ export const Heading = styled.div`
 export const ReadTime = styled.div`
     
 `
-export const Title = styled.div`
+export const Title = styled(LinkR)`
     font-size: 24px;
     font-weight: bolder;
+    text-decoration: none;
+    color: black;
 `
 export const Description = styled.div`
     

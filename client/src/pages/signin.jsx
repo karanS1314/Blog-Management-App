@@ -17,25 +17,25 @@ const Signin = () => {
   const loginUser = async (e) =>{
     e.preventDefault();
 
-    // const res = await fetch("/api/signin", {
-    //     method: "POST",
-    //     headers:{
-    //         "Content-Type" : "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         email, password
-    //     })
-    //   })
+    const res = await fetch("/api/signin", {
+        method: "POST",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+            email, password
+        })
+      })
     
-    //   const data = res.json();
-    //   if(res.status === 400 || !data){
-    //       window.alert("Invalid credentials");
-    //   }
-    //   else{
-    //     dispatch({type: "USER", payload: true});
-    //     window.alert("Login successful");
-    //     navigate("/home");
-    //   }
+      const data = res.json();
+      if(res.status === 400 || !data){
+          window.alert("Invalid credentials");
+      }
+      else{
+        dispatch({type: "USER", payload: true});
+        window.alert("Login successful");
+        navigate("/home");
+      }
   }
   const SignInSchema = yup.object().shape({
     username: yup.string().required("Username is Required"),

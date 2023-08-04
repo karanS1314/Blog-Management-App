@@ -1,0 +1,155 @@
+import styled from "styled-components";
+import { Link as LinkR } from "react-router-dom";
+
+export const Container = styled.div`
+  background-color: #F8F8F8;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  grid-template-areas: 'col1 col2';
+  @media screen and (max-width: 1300px) {
+    grid-template-areas: 'col1 col1' 'col2 col2';
+  grid-template-columns: 1fr;
+  }
+`;
+export const Wrapper1 = styled.div`
+     position: fixed;
+    grid-area: col1;
+    margin: 0;
+    padding: 2rem;
+    @media screen and (max-width: 1300px) {
+        position: relative;
+  }
+`;
+
+export const Wrapper2 = styled.div`
+  background-color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0rem 5rem 0  0;
+  padding: 2rem;
+  grid-area: col2;
+`;
+
+export const PostWrapper = styled.div`
+    font-size: 18px;
+    padding: 1rem;
+    word-spacing: 6px;
+`;
+export const Starting = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+`
+export const Heading = styled.div`
+    font-size: 16px;
+    
+`
+export const ReadTime = styled.div`
+    
+`
+export const Title = styled(LinkR)`
+    font-size: 24px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: black;
+`
+export const Description = styled.div`
+    
+`
+export const Ending = styled.div`
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+`
+export const Likes = styled.div`
+    
+`
+export const Comments = styled.div`
+    
+`
+export const Date = styled.div`
+    
+`
+export const Name = styled.h3`
+`
+export const Email = styled.span`
+  
+`
+export const Gender = styled.span`
+  
+`
+export const Followers = styled.button`
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #4169e1;
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 10rem;
+    border: none;
+`
+export const Following = styled.button`
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: white;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 10rem;
+  margin-left: -15rem;
+  border: 0.5px solid black;
+`
+export const FollowWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 50rem;
+  grid-gap: 0;
+`
+export const Image = styled.img`
+  margin: 1rem 0;
+  width: 9rem;
+  border-radius: 10000px;
+`
+export const Input = styled.input`
+  color: black;
+    width: 90%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+    background-color: rgba(39, 39, 39, 0.2);
+`
+export const Button = styled.button`
+    padding: 8px;
+  font-size: 16px;
+  font-weight: bolder;
+  border-radius: 4px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #5be505;
+  color: white;
+    border: none;
+`
+
+export const InputWrapper = styled.div`
+  display: ${({ show }) => (show === 1 ? "" : "none")};
+  margin: 2rem 1rem;
+`
+
+export const EditButton = styled.button`
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: yellow;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 10rem;
+  border: 0.5px solid black;
+`

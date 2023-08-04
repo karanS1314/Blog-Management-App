@@ -1,14 +1,40 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  display: flex;
-  z-index: 50;
-  background-color: #dbe1e8;
+export const Container = styled.div`
+  background-color: #F8F8F8;
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  grid-template-areas: 'col1 col2';
+  @media screen and (max-width: 1300px) {
+    grid-template-areas: 'col1 col1' 'col2 col2';
+  grid-template-columns: 1fr;
+  }
+`;
+export const SearchInput = styled.input`
+    padding: 14px 19px;
+    /* border: 1px solid grey; */
+    background-color: white;
+    border-radius: 5px;
+    transition: .2s;
+`
+export const Wrapper1 = styled.div`
+    position: fixed;
+    grid-area: col1;
+    margin: 0;
+    padding: 2rem;
+    @media screen and (max-width: 1300px) {
+        position: relative;
+  }
+`;
+
+export const Wrapper2 = styled.div`
+  background-color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0rem calc((100vw - 1300px) / 2);
+  margin: 0rem 5rem 0  0;
   padding: 2rem;
+  grid-area: col2;
 `;
 
 export const PostWrapper = styled.div`

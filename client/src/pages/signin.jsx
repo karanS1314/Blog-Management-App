@@ -1,22 +1,12 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom';
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import { UserContext } from '../App';
+import { Formik } from "formik";
+import * as yup from "yup";
 import Navbar from "../components/Navbar/index";
+import {Button} from "../components/Form/FormElements"
 const Signin = () => {
-
-  const Button = styled(motion.button)`
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    background: #4169e1;
-    color: white;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    width: 100%;
-  `;
   const {state , dispatch} = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -27,72 +17,113 @@ const Signin = () => {
   const loginUser = async (e) =>{
     e.preventDefault();
 
-    const res = await fetch("/api/signin", {
-        method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            email, password
-        })
-      })
+    // const res = await fetch("/api/signin", {
+    //     method: "POST",
+    //     headers:{
+    //         "Content-Type" : "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         email, password
+    //     })
+    //   })
     
-      const data = res.json();
-      if(res.status === 400 || !data){
-          window.alert("Invalid credentials");
-      }
-      else{
-        dispatch({type: "USER", payload: true});
-        window.alert("Login successful");
-        navigate("/home");
-      }
+    //   const data = res.json();
+    //   if(res.status === 400 || !data){
+    //       window.alert("Invalid credentials");
+    //   }
+    //   else{
+    //     dispatch({type: "USER", payload: true});
+    //     window.alert("Login successful");
+    //     navigate("/home");
+    //   }
   }
-
+  const SignInSchema = yup.object().shape({
+    username: yup.string().required("Username is Required"),
+    password: yup.string().required("Password Is Required"),
+});
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
   return (
       <>
         <Navbar />
-        <div class="background">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <form method="POST">
-                <h3>Welcome Back!</h3>
-
-                <label for="username">Email</label>
-                    <input
-                    className='form-input'
-                    type='email'
-                    name='email'
-                    value={email} onChange={(e) => setEmail(e.target.value)}
-                    placeholder='Enter your email'
-                    />
-                <label for="password">Password</label>
-                    <input
-                    className='form-input'
-                    type='password'
-                    name='password'
-                    value={password} onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Enter your password'
-                    />
-                <Button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{
-                    scale: 0.95,
-                    backgroundColor: "#67F6E7",
-                    border: "none",
-                    color: "#000",
-                    }}
-                    onClick={loginUser}  type='submit'
-                >
-                    Sign in
-                </Button>
-                <br />
-                <span className='form-input-login'>
-                    New here? Register <a href='/signup'>here</a>
-                </span>
-            </form>
+        <div className="background">
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <Formik
+                initialValues={{ username: "", password: "" }}
+                validationSchema={SignInSchema}
+                onSubmit={(values, { setSubmitting }) => {
+                    console.log({ values });
+                    // Add submit logic here
+                    localStorage.setItem("demo_user", true);
+                    setSubmitting(false);
+                    navigate("/");
+                }}
+            >
+                {({
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                    values,
+                    touched,
+                    errors,
+                    setValues,
+                }) => (
+                    <form
+                        method="POST"
+                    >
+                        <h3>
+                            Sign In
+                        </h3>
+                        <label htmlFor="username">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                onBlur={handleBlur}
+                                autoComplete="email"
+                                className={`form-input ${
+                                    touched.username &&
+                                    !!errors.username &&
+                                    "border-red-700"
+                                }`}
+                                placeholder="Enter valid email"
+                            />
+                            {touched.username && !!errors.username && (
+                                <span className="text-xs text-red-700">
+                                    {errors.username}
+                                </span>
+                            )}
+                        <label htmlFor="password">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                onBlur={handleBlur}
+                                autoComplete="Enter password"
+                                className={`form-input ${
+                                    touched.password &&
+                                    !!errors.password &&
+                                    "border border-red-700"
+                                }`}
+                                placeholder="password"
+                            />
+                            {touched.password && !!errors.password && (
+                                <span className="text-xs text-red-700">
+                                    {errors.password}
+                                </span>
+                            )}
+                        <Button
+                            onClick={loginUser}  type='submit'
+                        >
+                            Sign in
+                        </Button>
+                    </form>
+                )}
+            </Formik>
         </div>
       </>
     

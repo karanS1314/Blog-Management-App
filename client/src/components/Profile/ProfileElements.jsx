@@ -29,8 +29,8 @@ export const PostWrapper = styled.div`
     font-size: 18px;
     padding: 1rem;
     word-spacing: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    margin: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    margin: 0 0 5rem;
 `;
 export const Starting = styled.div`
     display: grid;
@@ -111,6 +111,7 @@ export const Image = styled.img`
   margin: 1rem 0;
   width: 9rem;
   border-radius: 10000px;
+  cursor: pointer;
 `
 export const Input = styled.input`
   color: black;

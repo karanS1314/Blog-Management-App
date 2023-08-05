@@ -27,20 +27,27 @@ const Feed = () => {
     const sort = document.getElementById("sort").value;
     console.log(sort);
     if(sort == 1){
-    console.log(postArray);
-
-        postArray.sort(compareLikes);
+        setPostArray((post) => [...post].sort(compareLikes));
     }
     else if(sort == 2){
-    console.log(postArray);
-
-        postArray.sort(compareComments);
+        setPostArray((post) => [...post].sort(compareComments));
     }
-    window.localStorage.setItem("posts",JSON.stringify(postArray));
-    window.location.reload();
-    // RenderFeed();
   }
+  const compareTopPost = (postA, postB) =>{
 
+    if (postB.likes !== postA.likes) {
+        return postB.likes - postA.likes;
+      }
+    return postB.comments.length - postA.comments.length;
+  }
+  const toggleTopPost = () => {
+    const isChecked = document.getElementById("toppost").checked;
+    console.log(isChecked);
+    if(isChecked){
+        setPostArray((post) => [...post].sort(compareTopPost));
+        
+    }
+  }
   const RenderFeed = () =>{
     if(input !== ""){
         return (
@@ -120,6 +127,10 @@ const Feed = () => {
                     <option value="2">Most Commented</option>
                 </select>
                 <button id="sortBtn" onClick={sortby}>Sort</button>
+                <div>
+                <label>View Top Posts</label>
+                <input onClick={toggleTopPost} type="checkbox" id="toppost"/>
+            </div>
             </div>
         </Wrapper1>
         <Wrapper2>

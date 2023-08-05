@@ -48,7 +48,7 @@ const Post = () => {
 			description: description.value,
 			title: title.value,
 			likes:"",
-			comments:"",
+			comments:[],
 			minReadTime:result,
 			date: `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`,
 			author: user.username,
@@ -62,7 +62,8 @@ const Post = () => {
 	}
 	const addArticle = (article) =>{
 		allPosts.push(article);
-		localStorage.setItem("posts" , JSON.stringify(allPosts));
+		window.localStorage.setItem("posts" , JSON.stringify(allPosts));
+		window.location.reload();
 	}
 	const savePost = (id , description) =>{
 		const taskIndex = allPosts.findIndex((task) => task.id === id);
@@ -100,9 +101,8 @@ const Post = () => {
 		eInputContainer.append(editsavebtn);
 	}
 	const deletePost = (id) => {
-		// console.log(id);
-		setAllPosts(allPosts.filter((task) => task.id != id));
-		window.localStorage.setItem("posts" , JSON.stringify(allPosts));
+		window.localStorage.setItem("posts" , JSON.stringify(allPosts.filter((task) => task.id !== id)));
+		window.location.reload();
 	}
 	useEffect(() => {
 		if(!window.localStorage.getItem("demo_user")){
@@ -135,7 +135,7 @@ const Post = () => {
                             <Topic>{item.topic}</Topic>
 						</Starting>
 						<hr />
-						<Title to={`post/${item.id}`} >
+						<Title to={`/post/${item.id}`} >
 							{item.title}
 						</Title>
 						<Description>
@@ -143,7 +143,7 @@ const Post = () => {
 						</Description>
 						<Ending>
 							<Likes>{item.likes} <FaThumbsUp style={{margin: -4 }}/></Likes>
-							<Comments>{item.comments} <FaRegComment style={{margin: -4 }}/></Comments>
+							<Comments>{item.comments.length} <FaRegComment style={{margin: -4 }}/></Comments>
 							<Date>Published on: {item.date}</Date>
 						</Ending>
 						<LastWrapper>

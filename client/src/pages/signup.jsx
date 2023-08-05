@@ -33,24 +33,25 @@ const Signup = () => {
     setErrors(validate(user));
     console.log(user);
     console.log("errors " + errors);
-    const res = await fetch("/api/register", {
-        method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            name, email, password, cpassword
-        })
-    })
+    // navigate("/signin")
+    // const res = await fetch("/api/register", {
+    //     method: "POST",
+    //     headers:{
+    //         "Content-Type" : "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         name, email, password, cpassword
+    //     })
+    // })
 
-    const data = await res.json();
-    if(res.status === 400 || !data){
-        window.alert("Invalid registration");
-    }
-    else{ 
-        window.alert("Valid registration, please sign-in to proceed");
-        navigate("/signin");
-    }
+    // const data = await res.json();
+    // if(res.status === 400 || !data){
+    //     window.alert("Invalid registration");
+    // }
+    // else{ 
+    //     window.alert("Valid registration, please sign-in to proceed");
+    //     navigate("/signin");
+    // }
   }
 
   return (

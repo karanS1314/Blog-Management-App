@@ -78,7 +78,7 @@ const Post = () => {
           {showCommentForm ? (
             <CommentForm onSubmit={handleCommentSubmit} />
           ) : (
-            <button onClick={handleCommentClick}>Add a Comment</button>
+            <button onClick={handleCommentClick}><FaRegComment/></button>
           )}
           <button><BsBookmarkPlus /></button>
         </div>

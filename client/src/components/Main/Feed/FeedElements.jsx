@@ -43,8 +43,8 @@ export const PostWrapper = styled.div`
     font-size: 18px;
     padding: 1rem;
     word-spacing: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    margin: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    margin: 0 0 5rem;
 `;
 export const Starting = styled.div`
     display: grid;

@@ -14,7 +14,7 @@ const Signin = () => {
 
   const loginUser = async (e) =>{
     e.preventDefault();
-    if(email != '' & password != ""){
+    if(email !== '' & password !== ""){
         window.localStorage.setItem("demo_user" , true);
         window.alert("Login successful");
         navigate("/");

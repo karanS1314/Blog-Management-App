@@ -11,7 +11,7 @@ export const Nav = styled.nav`
   font-size: 1.1rem;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   @media screen and(max-width:960px) {
     transition: 0.8s all ease;
   }
@@ -178,4 +178,10 @@ export const NavBtnWrap = styled.div`
   align-items: center;
   grid-template-areas: ${({ imgStart }) =>
     imgStart ? `'col2 col1'` : `'col1 col2'`};
+`;
+
+export const Image = styled.img`
+  width: 40px;
+  border-radius: 300px;
+  margin-right: 2rem;
 `;

@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 0.3fr 1fr;
   grid-template-areas: 'col1 col2';
+  padding: 0rem calc((100vw - 1300px) / 2);
   @media screen and (max-width: 1300px) {
     grid-template-areas: 'col1 col1' 'col2 col2';
   grid-template-columns: 1fr;
@@ -42,10 +43,13 @@ export const PostWrapper = styled.div`
     font-size: 18px;
     padding: 1rem;
     word-spacing: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 1rem 0;
 `;
 export const Starting = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 0 1rem;
 `
 export const Heading = styled.div`
     font-size: 16px;
@@ -59,8 +63,10 @@ export const Title = styled(LinkR)`
     font-weight: bolder;
     text-decoration: none;
     color: black;
+    margin: 0 0 1rem;
 `
 export const Description = styled.div`
+    margin: 0 0 1rem;
     
 `
 export const Ending = styled.div`
@@ -76,4 +82,9 @@ export const Comments = styled.div`
 `
 export const Date = styled.div`
     
+`
+export const Topic = styled.div`
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    text-align: center;
 `

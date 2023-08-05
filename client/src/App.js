@@ -5,10 +5,8 @@ import Signin from "./pages/signin";
 import Logout from "./pages/logout";
 import Post from "./pages/post";
 import Profile from "./pages/profile";
-import { createContext, useReducer, React, useEffect } from "react";
-import { reducer, initialState } from "../src/reducer/useReducer";
+import {useReducer, React, useEffect } from "react";
 
-export const UserContext = createContext();
 const Routing = () => {
   return (
     <Routes>
@@ -22,16 +20,10 @@ const Routing = () => {
   );
 };
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    localStorage.setItem("STATE", JSON.stringify(state));
-  }, [state]);
 
   return (
     <>
-      <UserContext.Provider value={{ state, dispatch }}>
         <Routing />
-      </UserContext.Provider>
     </>
   );
 }

@@ -1,56 +1,30 @@
-// Comment.js
+import React, { useState } from 'react';
+import "../styles/comment_styles.css";
 
-import React, { useState, useEffect } from 'react';
-const Comment = () => {
-  const [comments, setComments] = useState([]);
-  const [commentText, setCommentText] = useState('');
+const CommentForm = ({ onSubmit }) => {
+  const [comment, setComment] = useState('');
 
-  useEffect(() => {
-    // Load comments from local storage on component mount
-    const storedComments = localStorage.getItem('comments');
-    if (storedComments) {
-      setComments(JSON.parse(storedComments));
-    }
-  }, []);
-
-  const handleCommentChange = (e) => {
-    setCommentText(e.target.value);
+  const handleChange = (event) => {
+    setComment(event.target.value);
   };
 
-  const handleAddComment = () => {
-    if (commentText.trim() !== '') {
-      const newComments = [...comments, commentText];
-      setComments(newComments);
-      setCommentText('');
-
-      // Save comments to local storage
-      localStorage.setItem('comments', JSON.stringify(newComments));
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(comment);
+    setComment('');
   };
 
   return (
-    <div className="comment-container">
-      <button className="comment-button" onClick={handleAddComment}>
-        Add Comment
-      </button>
-      {comments.map((comment, index) => (
-        <div key={index} className="comment">
-          {comment}
-        </div>
-      ))}
-      <div className="comment-form" style={{ display: 'none' }}>
-        <textarea
-          className="comment-input"
-          value={commentText}
-          onChange={handleCommentChange}
-          placeholder="Enter your comment..."
-        />
-        <button className="comment-submit" onClick={handleAddComment}>
-          Submit
-        </button>
-      </div>
-    </div>
+    <form className='comment-form' onSubmit={handleSubmit}>
+      <textarea
+        className='comment-input'
+        value={comment}
+        onChange={handleChange}
+        placeholder="Write your comment..."
+      />
+      <button className='comment-submit' type="submit">Submit</button>
+    </form>
   );
 };
 
-export default Comment;
+export default CommentForm;

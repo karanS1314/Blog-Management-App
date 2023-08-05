@@ -1,10 +1,8 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate} from "react-router-dom";
-import { UserContext } from '../App';
 
 const Logout = () => {
   const navigate = useNavigate();
-  const {state , dispatch} = useContext(UserContext);
   useEffect(() => {
     fetch("/api/logout", {
       method: "GET",
@@ -14,7 +12,7 @@ const Logout = () => {
       },
       credentials: "include",
     }).then((res) => {
-      dispatch({type: "USER", payload: false});
+      window.localStorage.removeItem("demo_user");
       navigate("/signin");
       if (res.status !== 200) {
         const error = new Error(res.error);

@@ -21,7 +21,12 @@ const Signup = () => {
 
        setUser({...user , [name]: value});
    }    
-
+   useEffect(() => {
+    if(window.localStorage.getItem("demo_user")){
+        navigate("/");
+    }
+    window.scrollTo(0, 0)
+  }, []);
    const PostData = async (e) =>{
     e.preventDefault();
     const {name, email, password, cpassword} = user;

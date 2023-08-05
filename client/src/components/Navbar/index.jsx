@@ -14,14 +14,19 @@ import {
   NavBtn2,
   NavBtnLink1,
   NavBtnLink2,
-  NavLinkR
+  NavLinkR,
+  Image
 } from "./NavbarElements";
-import { UserContext } from '../../App';
+import profileImg from "../../images/profile.webp"
+import {useNavigate} from 'react-router-dom';
 
 const Navbar = ({ toggle }) => {
-  const {state , dispatch} = useContext(UserContext);
   const [scrollnav, setscrollnav] = useState(false);
+	const navigate = useNavigate();
 
+  const toProfile = () =>{
+		navigate("/profile/1");
+	}
   const changeNav = () => {
     if (window.scrollY >= 80) {
       setscrollnav(true);
@@ -37,10 +42,11 @@ const Navbar = ({ toggle }) => {
     scroll.scrollToTop();
   };
   const RenderMenu = () => {
-    if(state){
+    if(window.localStorage.getItem("demo_user")){
       return(
         <>
           <NavBtn2>
+            <Image src={profileImg} onClick={toProfile}></Image>
             <NavBtnLink1 scrollnav={scrollnav} to="/logout">Log Out</NavBtnLink1>
           </NavBtn2>
         </>

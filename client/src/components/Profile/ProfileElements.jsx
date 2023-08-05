@@ -6,19 +6,12 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 0.3fr 1fr;
   grid-template-areas: 'col1 col2';
-  @media screen and (max-width: 1300px) {
-    grid-template-areas: 'col1 col1' 'col2 col2';
-  grid-template-columns: 1fr;
-  }
+  margin: 0rem calc((100vw - 1300px) / 2);
 `;
 export const Wrapper1 = styled.div`
      position: fixed;
     grid-area: col1;
-    margin: 0;
     padding: 2rem;
-    @media screen and (max-width: 1300px) {
-        position: relative;
-  }
 `;
 
 export const Wrapper2 = styled.div`
@@ -29,16 +22,20 @@ export const Wrapper2 = styled.div`
   margin: 0rem 5rem 0  0;
   padding: 2rem;
   grid-area: col2;
+  z-index: 10;
 `;
 
 export const PostWrapper = styled.div`
     font-size: 18px;
     padding: 1rem;
     word-spacing: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 1rem 0;
 `;
 export const Starting = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 0 0 1rem;
 `
 export const Heading = styled.div`
     font-size: 16px;
@@ -52,8 +49,10 @@ export const Title = styled(LinkR)`
     font-weight: bolder;
     text-decoration: none;
     color: black;
+    margin: 0 0 1rem;
 `
 export const Description = styled.div`
+    margin: 0 0 1rem;
     
 `
 export const Ending = styled.div`
@@ -100,12 +99,11 @@ export const Following = styled.button`
   margin-top: 30px;
   margin-bottom: 10px;
   width: 10rem;
-  margin-left: -15rem;
+  margin-top: -0.5rem;
   border: 0.5px solid black;
 `
 export const FollowWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
   width: 50rem;
   grid-gap: 0;
 `
@@ -141,15 +139,26 @@ export const InputWrapper = styled.div`
   margin: 2rem 1rem;
 `
 
-export const EditButton = styled.button`
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  background: yellow;
-  color: black;
-  margin-top: 30px;
-  margin-bottom: 10px;
+export const EButton = styled.button`
+padding: 8px;
+font-size: 16px;
+font-weight: bolder;
+border-radius: 4px;
+cursor: pointer;
+border-radius: 5px;
+background: #f8f8f8;
+border: none;
+`
+
+export const LastWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   width: 10rem;
-  border: 0.5px solid black;
+  margin: 1rem 0 0;
+  grid-gap: 10px;
+`
+export const Topic = styled.div`
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    text-align: center;
 `

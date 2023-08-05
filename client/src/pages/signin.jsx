@@ -1,13 +1,11 @@
 import React, {useContext, useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom';
 import styled from "styled-components";
-import { UserContext } from '../App';
 import { Formik } from "formik";
 import * as yup from "yup";
 import Navbar from "../components/Navbar/index";
 import {Button} from "../components/Form/FormElements"
 const Signin = () => {
-  const {state , dispatch} = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -16,32 +14,37 @@ const Signin = () => {
 
   const loginUser = async (e) =>{
     e.preventDefault();
-
-    const res = await fetch("/api/signin", {
-        method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-            email, password
-        })
-      })
-    
-      const data = res.json();
-      if(res.status === 400 || !data){
-          window.alert("Invalid credentials");
-      }
-      else{
-        dispatch({type: "USER", payload: true});
+    if(email != '' & password != ""){
+        window.localStorage.setItem("demo_user" , true);
         window.alert("Login successful");
-        navigate("/home");
-      }
+        navigate("/");
+    }
+    // const res = await fetch("/api/signin", {
+    //     method: "POST",
+    //     headers:{
+    //         "Content-Type" : "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         email, password
+    //     })
+    //   })
+    
+    //   const data = res.json();
+    //   if(res.status === 400 || !data){
+    //       window.alert("Invalid credentials");
+    //   }
+    //   else{
+        
+    //   }
   }
   const SignInSchema = yup.object().shape({
     username: yup.string().required("Username is Required"),
     password: yup.string().required("Password Is Required"),
 });
   useEffect(() => {
+    if(window.localStorage.getItem("demo_user")){
+        navigate("/");
+    }
     window.scrollTo(0, 0)
   }, [])
   return (

@@ -97,7 +97,7 @@ class AuthorsController < ApplicationController
       author = Author.find(@current_author_id)
       post = Post.find(params[:post_id])
 
-      if author.save_for_laters.exists?(post.id)
+      if !author.save_for_laters.exists?(post.id)
         author.save_for_laters.create(post:post)
         render json: {message: "Post saved for later successfully"}, status: :ok
       else

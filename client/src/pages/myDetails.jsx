@@ -24,7 +24,7 @@ const MyDetails = () => {
 	const [isPremiumMember, setIsPremiumMember] = useState(false);
     useEffect(() => {
 		if(!jwtToken){
-			navigate("/");
+			navigate("/signin");
 		}
         const premiumStatus = localStorage.getItem('premiumMembership');
         setIsPremiumMember(!!premiumStatus);
@@ -113,7 +113,7 @@ const MyDetails = () => {
             console.error('Error fetching posts:', error);
 
         });
-		navigate('/myDetails');
+		window.location.reload();
 
 	};
 
@@ -138,7 +138,7 @@ const MyDetails = () => {
 		  .catch((error) => {
 			console.error('Error saving draft:', error);
 		  });
-		//   navigate('/myDrafts');
+		  navigate('/myDrafts');
 	};
 
     const handleDelete = (postId) => {
@@ -159,7 +159,7 @@ const MyDetails = () => {
             console.error('Error fetching posts:', error);
 
         });
-		navigate('/myDetails');
+		window.location.reload();
     }
     
 
@@ -192,7 +192,7 @@ const MyDetails = () => {
 						{item.title}
 					</Title>
 					<Description>
-						{item.text}...
+						{item.text.substring(0,50)}...
 					</Description>
 					<img style={{width: "200px"}} src={item.image} alt={item.title} />
 					<Ending>

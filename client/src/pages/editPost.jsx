@@ -19,14 +19,12 @@ const EditPost = () => {
   const headers = {
     'authToken': jwtToken,
   };
-
-  useEffect(()=>{
+  
+  useEffect(() => {
     if(!jwtToken)
     {
-        navigate('/login');
+      navigate("/signin");
     }
-  })
-  useEffect(() => {
     console.log(postId,"jwt is here", jwtToken);
     axios.get(`http://127.0.0.1:3000/get/post/${postId}`, {headers})
       .then((response) => {

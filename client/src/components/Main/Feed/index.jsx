@@ -65,7 +65,7 @@ const Feed = () => {
                 <PostWrapper key={item.id}>
                     <Starting>
                         <Heading>{item.author_name}</Heading>
-                        <ReadTime>{item.id} min read</ReadTime>
+                        <ReadTime>~{item.id} min read</ReadTime>
                         <Topic>{item.topic}</Topic>
                     </Starting>
                     <hr />

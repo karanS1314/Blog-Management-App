@@ -6,13 +6,13 @@ const Payment = () => {
     const navigate = useNavigate();
     const [selectedTier, setSelectedTier] = useState('');
     const jwtToken = localStorage.getItem("jwtToken");
-    
+
     const handleTierSelect = (tier) => {
         setSelectedTier(tier);
     };
     useEffect(() => {
         if (!jwtToken) {
-          navigate("/");
+          navigate("/signin");
         }
       }, []);
     const plans = [

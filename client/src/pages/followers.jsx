@@ -15,9 +15,10 @@ function Follower() {
 	// Fake follower data
 	const [users , setUsers] = useState([]);
 	useEffect(()=>{
-		if(!jwtToken){
-			navigate("/");
-		}
+		if(!jwtToken)
+		{
+		navigate("/signin");
+		}	
 		axios.get('http://127.0.0.1:3000/author/showAll',{headers})
 		.then((response) => {
 			setUsers(response.data);

@@ -18,6 +18,9 @@ const Profile = () => {
 	};
 
 	useEffect(()=>{
+		if(!jwtToken){
+			navigate("/signin")
+		}
 		axios.get(`http://127.0.0.1:3000/get/post/author/${uid}`)
 		.then((response) => {
 		  setPosts(response.data);
@@ -74,7 +77,7 @@ const Profile = () => {
 				<PostWrapper key={item.id}>
 					<Starting>
 						<Heading>{item.author_name}</Heading>
-						<ReadTime>{item.reading_time} read</ReadTime>
+						<ReadTime>~{item.id} read</ReadTime>
 						<Topic>{item.topic}</Topic>
 					</Starting>
 					<hr />

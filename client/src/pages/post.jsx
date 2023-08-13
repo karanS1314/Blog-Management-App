@@ -26,7 +26,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     if(!jwtToken){
-      navigate("/");
+      navigate("/signin");
     }
     async function fetchMainData() {
       try {
@@ -183,7 +183,6 @@ const PostDetail = () => {
   }
 
   const handleSavePost = () => {
-    console.log(postId);
     axios.post(`http://127.0.0.1:3000/author/saveForLater/${postId}`, {}, { headers })
       .then((response) => {
         console.log(response.data);

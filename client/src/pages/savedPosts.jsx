@@ -14,7 +14,7 @@ const SavedPost = () => {
   };
   useEffect(() => {
     if (!jwtToken) {
-      navigate("/");
+      navigate("/signin");
     }
     (async () => {
       await axios

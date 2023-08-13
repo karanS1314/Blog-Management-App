@@ -5,7 +5,8 @@ import Signin from "./pages/signin";
 import Logout from "./pages/logout";
 import Post from "./pages/post";
 import Profile from "./pages/profile";
-import {useReducer, React, useEffect } from "react";
+import { useReducer, React, useEffect } from "react";
+import MyDetails from "./pages/myDetails";
 
 const Routing = () => {
   return (
@@ -15,15 +16,15 @@ const Routing = () => {
       <Route path="/signin" exact element={<Signin />} />
       <Route path="/logout" exact element={<Logout />} />
       <Route path="/post/:id" exact element={<Post />} />
-      <Route path="/profile/:id" exact element={<Profile />} />
+      <Route path="/profile/:uid" exact element={<Profile />} />
+      <Route path="/myDetails" exact element={<MyDetails />} />
     </Routes>
   );
 };
 function App() {
-
   return (
     <>
-        <Routing />
+      <Routing />
     </>
   );
 }

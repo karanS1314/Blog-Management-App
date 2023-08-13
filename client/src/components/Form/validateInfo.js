@@ -16,10 +16,5 @@ export default function validateInfo(values) {
     errors.password = "Password needs to be 6 characters or more";
   }
 
-  if (!values.cpassword) {
-    errors.cpassword = "Password is required";
-  } else if (values.cpassword !== values.password) {
-    errors.cpassword = "Passwords do not match";
-  }
   return errors;
 }

@@ -3,79 +3,78 @@ import {Link } from "react-router-dom";
 import {Topic, Container, Wrapper1, SearchInput, Wrapper2, PostWrapper , Starting  ,Heading , ReadTime,  Title , Description , Ending , Likes , Comments , Date} from "./FeedElements";
 import {useState , useEffect} from "react";
 import { FaThumbsUp, FaRegComment } from "react-icons/fa6";
-import { postArr } from "./Data";
+import {useNavigate} from 'react-router-dom';
+import axios from "axios";
+
 const Feed = () => {
+    const [postArr , setpostArr] = useState([]);
+    const [showTop , setShowTop] = useState(false);
+    useEffect(() => {
+        if(!showTop){
+            axios.get('http://127.0.0.1:3000/posts/all')
+            .then((response) => {
+                setpostArr(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+            console.error('Error fetching posts:', error);
+
+            });
+        }
+        else{
+            axios.get('http://127.0.0.1:3000/get/topPosts')
+            .then((response) => {
+                setpostArr(response.data);
+                console.log(response.data);
+                
+            })
+            .catch((error) => {
+                console.error('Error fetching posts:', error);
+            });
+        }
+    }, [showTop]);
 
   const [input , setInput] = useState("");
-  const [postArray , setPostArray] = useState(postArr);
   const search = () => {
     setInput(document.getElementById("searchbar").value.toLowerCase());
-  }
-  useEffect(() => {
-    if(window.localStorage.getItem("posts")){
-        setPostArray(JSON.parse(window.localStorage.getItem("posts")));
-    }
-  },[]);
-
-  const compareLikes = (postA, postB) => {
-    return postB.likes - postA.likes;
-  };
-  const compareComments = (postA, postB) => {
-    return postB.comments.length - postA.comments.length;
-  };
-  const sortby = () => {
-    const sort = document.getElementById("sort").value;
-    console.log(sort);
-    if(sort == 1){
-        setPostArray((post) => [...post].sort(compareLikes));
-    }
-    else if(sort == 2){
-        setPostArray((post) => [...post].sort(compareComments));
-    }
-  }
-  const compareTopPost = (postA, postB) =>{
-
-    if (postB.likes !== postA.likes) {
-        return postB.likes - postA.likes;
-      }
-    return postB.comments.length - postA.comments.length;
   }
   const toggleTopPost = () => {
     const isChecked = document.getElementById("toppost").checked;
     console.log(isChecked);
     if(isChecked){
-        setPostArray((post) => [...post].sort(compareTopPost));
-        
+        setShowTop(true);    
+    }
+    else{
+        setShowTop(false);
     }
   }
   const RenderFeed = () =>{
     if(input !== ""){
         return (
             <>
-            {postArray.map((item) => {
+            {postArr.map((item) => {
                 // console.log(input);
                 if(item.title.toLowerCase().includes(input) ||
-                 item.description.toLowerCase().includes(input) || 
-                 item.author.toLowerCase().includes(input)){
+                 item.text.toLowerCase().includes(input) || 
+                 item.author_name.toLowerCase().includes(input)){
                     return (
-                        <PostWrapper key={item.id} >
+                        <PostWrapper key={item.id}>
                             <Starting>
-                                <Heading>Author: {item.author}</Heading>
-                                <ReadTime>{item.minReadTime} read</ReadTime>
+                                <Heading>{item.author_name}</Heading>
+                                <ReadTime>{item.reading_time} read</ReadTime>
                                 <Topic>{item.topic}</Topic>
                             </Starting>
-                            
-                        <hr />
-                            <Title to={`post/${item.id}`} >
+                            <hr />
+                            <Title to={`/post/${item.id}`} >
                                 {item.title}
                             </Title>
                             <Description>
-                                {item.description.substring(0,100)}...
+                                {item.text.substring(0,100)}...
                             </Description>
                             <Ending>
-                                <Likes>{item.likes} <FaThumbsUp/></Likes>
-                                <Comments>{item.comments.length} <FaRegComment/></Comments>
-                                <Date>Published on: {item.date}</Date>
+                                <Likes>{item.likes_count} <FaThumbsUp style={{margin: -4 }}/></Likes>
+                                <Comments>{item.comments_count} <FaRegComment style={{margin: -4 }}/></Comments>
+                                <Date>Published on: {item.published_at}</Date>
                             </Ending>
                         </PostWrapper>
                     );
@@ -87,27 +86,27 @@ const Feed = () => {
     else{
         return (
             <>
-            {postArray.map((item) => {
+            {postArr.map((item) => {
                 return (
                 <PostWrapper key={item.id}>
-                    <Starting>
-                        <Heading>Author: {item.author}</Heading>
-                        <ReadTime>{item.minReadTime} read</ReadTime>
-                        <Topic>{item.topic}</Topic>
-                    </Starting>
-                        <hr />
-                    <Title to={`post/${item.id}`} >
-                        {item.title}
-                    </Title>
-                    <Description>
-                        {item.description.substring(0,100)}...
-                    </Description>
-                    <Ending>
-                        <Likes>{item.likes} <FaThumbsUp style={{margin: -4 }}/></Likes>
-                        <Comments>{item.comments.length} <FaRegComment style={{margin: -4 }}/></Comments>
-                        <Date>Published on: {item.date}</Date>
-                    </Ending>
-                </PostWrapper>
+					<Starting>
+						<Heading>{item.author_name}</Heading>
+						<ReadTime>{item.reading_time} read</ReadTime>
+						<Topic>{item.topic}</Topic>
+					</Starting>
+					<hr />
+					<Title to={`/post/${item.id}`} >
+						{item.title}
+					</Title>
+					<Description>
+						{item.text.substring(0,100)}...
+					</Description>
+					<Ending>
+						<Likes>{item.likes_count} <FaThumbsUp style={{margin: -4 }}/></Likes>
+						<Comments>{item.comments_count} <FaRegComment style={{margin: -4 }}/></Comments>
+						<Date>Published on: {item.published_at}</Date>
+					</Ending>
+				</PostWrapper>
                 );
             })}
             </>
@@ -121,12 +120,12 @@ const Feed = () => {
         <Wrapper1>
             <SearchInput type="text" id = "searchbar" onKeyUp={search} placeholder="Search articles"></SearchInput>
             <div>
-                <label htmlFor="sort">Sort by</label>
+                {/* <label htmlFor="sort">Sort by</label>
                 <select name="sort" id="sort">
                     <option value="1">Most Likes</option>
                     <option value="2">Most Commented</option>
                 </select>
-                <button id="sortBtn" onClick={sortby}>Sort</button>
+                <button id="sortBtn" onClick={sortby}>Sort</button> */}
                 <div>
                 <label>View Top Posts</label>
                 <input onClick={toggleTopPost} type="checkbox" id="toppost"/>

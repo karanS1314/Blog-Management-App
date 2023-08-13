@@ -4,129 +4,85 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Navbar from "../components/Navbar/index";
-import {Button} from "../components/Form/FormElements"
+import {Button} from "../components/Form/FormElements";
+import axios from 'axios';
+
 const Signin = () => {
 
   const navigate = useNavigate();
 
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
   const loginUser = async (e) =>{
     e.preventDefault();
-    if(email !== '' & password !== ""){
-        window.localStorage.setItem("demo_user" , true);
-        window.alert("Login successful");
-        navigate("/");
+    try {
+      localStorage.clear();
+      const response = await axios.post('http://127.0.0.1:3000/author/login', formData);
+      // Assuming the API responds with a success message or user data
+      console.log('Sign-up successful:', response.data);
+      // Reset the form after successful sign-up
+      setFormData({
+        email: '',
+        password: '',
+      });
+      const jwtToken = response.data.token;
+      localStorage.setItem('jwtToken', jwtToken);
+      navigate('/');
+    } catch (error) {
+      // Handle any errors that occur during sign-up
+      console.error('Sign-up failed:', error);
     }
-    // const res = await fetch("/api/signin", {
-    //     method: "POST",
-    //     headers:{
-    //         "Content-Type" : "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         email, password
-    //     })
-    //   })
-    
-    //   const data = res.json();
-    //   if(res.status === 400 || !data){
-    //       window.alert("Invalid credentials");
-    //   }
-    //   else{
-        
-    //   }
   }
-  const SignInSchema = yup.object().shape({
-    username: yup.string().required("Username is Required"),
-    password: yup.string().required("Password Is Required"),
-});
-  useEffect(() => {
-    if(window.localStorage.getItem("demo_user")){
-        navigate("/");
-    }
-    window.scrollTo(0, 0)
-  }, [])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  
   return (
       <>
         <Navbar />
         <div className="background">
             <div className="shape"></div>
             <div className="shape"></div>
-            <Formik
-                initialValues={{ username: "", password: "" }}
-                validationSchema={SignInSchema}
-                onSubmit={(values, { setSubmitting }) => {
-                    console.log({ values });
-                    // Add submit logic here
-                    localStorage.setItem("demo_user", true);
-                    setSubmitting(false);
-                    navigate("/");
-                }}
-            >
-                {({
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    values,
-                    touched,
-                    errors,
-                    setValues,
-                }) => (
-                    <form
-                        method="POST"
-                    >
+            <form method="POST">
                         <h3>
                             Sign In
                         </h3>
                         <label htmlFor="username">Email</label>
                             <input
                                 type="email"
+                                id="email"
                                 name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                onBlur={handleBlur}
-                                autoComplete="email"
-                                className={`form-input ${
-                                    touched.username &&
-                                    !!errors.username &&
-                                    "border-red-700"
-                                }`}
-                                placeholder="Enter valid email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                autoComplete="Enter password"
+                                className={`form-input }`}
+                                placeholder="email"
                             />
-                            {touched.username && !!errors.username && (
-                                <span className="text-xs text-red-700">
-                                    {errors.username}
-                                </span>
-                            )}
                         <label htmlFor="password">Password</label>
                             <input
                                 type="password"
+                                id="password"
                                 name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                onBlur={handleBlur}
+                                value={formData.password}
+                                onChange={handleInputChange}
                                 autoComplete="Enter password"
-                                className={`form-input ${
-                                    touched.password &&
-                                    !!errors.password &&
-                                    "border border-red-700"
-                                }`}
+                                className={`form-input }`}
                                 placeholder="password"
                             />
-                            {touched.password && !!errors.password && (
-                                <span className="text-xs text-red-700">
-                                    {errors.password}
-                                </span>
-                            )}
                         <Button
                             onClick={loginUser}  type='submit'
                         >
                             Sign in
                         </Button>
                     </form>
-                )}
-            </Formik>
         </div>
       </>
     

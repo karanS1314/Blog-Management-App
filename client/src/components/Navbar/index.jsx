@@ -25,7 +25,7 @@ const Navbar = ({ toggle }) => {
 	const navigate = useNavigate();
 
   const toProfile = () =>{
-		navigate("/profile/1");
+		navigate("/myDetails");
 	}
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -42,7 +42,7 @@ const Navbar = ({ toggle }) => {
     scroll.scrollToTop();
   };
   const RenderMenu = () => {
-    if(window.localStorage.getItem("demo_user")){
+    if(window.localStorage.getItem("jwtToken")){
       return(
         <>
           <NavBtn2>

@@ -4,55 +4,46 @@ import '../components/Form/Form.css';
 import Navbar from "../components/Navbar/index";
 import {Button} from "../components/Form/FormElements"
 import validate from '../components/Form/validateInfo';
+import axios from 'axios';
 
 
 const Signup = () => {
+  const navigate=useNavigate(); 
+  const [errors , setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
 
-   const navigate = useNavigate();
-   const [errors, setErrors] = useState({});
-   const [user , setUser] = useState({
-       name:"", email: "", password: "", cpassword:""
-   });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-   let name , value;
-   const handleInputs = (e) =>{
-       name = e.target.name;
-       value = e.target.value;
-
-       setUser({...user , [name]: value});
-   }    
-   useEffect(() => {
-    if(window.localStorage.getItem("demo_user")){
-        navigate("/");
-    }
-    window.scrollTo(0, 0)
-  }, []);
-   const PostData = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {name, email, password, cpassword} = user;
-    setErrors(validate(user));
-    console.log(user);
-    console.log("errors " + errors);
-    // navigate("/signin")
-    // const res = await fetch("/api/register", {
-    //     method: "POST",
-    //     headers:{
-    //         "Content-Type" : "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         name, email, password, cpassword
-    //     })
-    // })
-
-    // const data = await res.json();
-    // if(res.status === 400 || !data){
-    //     window.alert("Invalid registration");
-    // }
-    // else{ 
-    //     window.alert("Valid registration, please sign-in to proceed");
-    //     navigate("/signin");
-    // }
-  }
+    try {
+      localStorage.clear();
+      const response = await axios.post('http://127.0.0.1:3000/create/author', formData);
+      // Assuming the API responds with a success message or user data
+      console.log('Sign-up successful:', response.data);
+      // Reset the form after successful sign-up
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+      });
+      setErrors(validate(formData));
+      navigate('/');
+    } catch (error) {
+      // Handle any errors that occur during sign-up
+      console.error('Sign-up failed:', error);
+    }
+  };
 
   return (
     <>
@@ -61,46 +52,38 @@ const Signup = () => {
           <div class="shape"></div>
           <div class="shape"></div>
 
-          <form method="POST" onSubmit={PostData} className='form' noValidate>
+          <form method="POST" onSubmit={handleSubmit} className='form' noValidate>
               <h3>Create Account</h3>
 
-              <label for="name">Name</label>
+              <label for="name">Username</label>
                 <input
                   className='form-input'
                   type='text'
-                  name='name'
-                  placeholder='Enter your full name'
-                  value={user.name} onChange={handleInputs}
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                 />
                 {errors.name && <p className='form-p'>{errors.name}</p>}
               <label for="email">Email</label>
                 <input
                   className='form-input'
-                  type='email'
-                  name='email'
-                  placeholder='Enter your email'
-                  value={user.email} onChange={handleInputs}
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                 />
                 {errors.email && <p className='form-p'>{errors.email}</p>}
               <label for="name">Password</label>
                 <input
                   className='form-input'
-                  type='password'
-                  name='password'
-                  placeholder='Enter your password'
-                  value={user.password} onChange={handleInputs}
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                 />
                 {errors.password && <p className='form-p'>{errors.password}</p>}
-              <label for="cpassword">Confirm Password</label>
-              <input
-                className='form-input'
-                type='password'
-                name='cpassword'
-                placeholder='Confirm your password'
-                value={user.cpassword} onChange={handleInputs}
-              />
-              {errors.cpassword && <p className='form-p'>{errors.cpassword}</p>}
-
               <Button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{

@@ -88,3 +88,10 @@ export const Topic = styled.div`
     border-radius: 5px;
     text-align: center;
 `
+export const RTopic = styled.div`
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    text-align: center;
+    margin: 1rem;
+    cursor: pointer;
+`

@@ -14,7 +14,8 @@ class PostsController < ApplicationController
               comments_count: post.comments_count,
               published_at: post.published_at,
               author_name: post.author.name,
-              author_id: post.author.id
+              author_id: post.author.id,
+              view_count: post.view_count 
             }
         end
   
@@ -34,7 +35,8 @@ class PostsController < ApplicationController
               comments_count: @post.comments_count,
               published_at: @post.published_at,
               author_name: @post.author.name,
-              author_id: @post.author.id
+              author_id: @post.author.id,
+              view_count: @post.view_count 
             }
         
   
@@ -99,11 +101,8 @@ class PostsController < ApplicationController
 
 
     def edit_post
-        @post = Post.find(params[:id])
+        @post = Post.find_by(id: params[:id])
         post_params = JSON.parse(request.body.read)
-        @post.reading_time = reading_time(post_params["text"])
-        # topic = Topic.find(post_params["topic_id"])
-        # @post.topic = topic.name
         if @post.update(post_params)
             
             render json: @post, status: :ok

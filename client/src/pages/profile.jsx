@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {useParams} from "react-router-dom";
-import {Topic , LastWrapper, EButton,InputWrapper , Button , Input , Image , Container, Wrapper1, Wrapper2, PostWrapper , Starting  ,Heading , ReadTime,  Title , Description , Ending , Likes , Comments , Date, Name , Email , Gender , Followers , Following , FollowWrapper} from "../components/Profile/ProfileElements";
+import {SearchInput , Topic , LastWrapper, EButton,InputWrapper , Button , Input , Image , Container, Wrapper1, Wrapper2, PostWrapper , Starting  ,Heading , ReadTime,  Title , Description , Ending , Likes , Comments , Date, Name , Email , Gender , Followers , Following , FollowWrapper} from "../components/Profile/ProfileElements";
 import Navbar from '../components/Navbar';
 import profileImg from "../images/profile.webp"
 import {useNavigate} from 'react-router-dom';
-import { FaThumbsUp, FaRegComment, FaRegEdit,FaPen ,FaTrash} from "react-icons/fa";
+import { FaEye , FaThumbsUp, FaRegComment, FaRegEdit,FaPen ,FaTrash} from "react-icons/fa";
 import axios from 'axios';
 
 const Profile = () => {
@@ -17,7 +17,6 @@ const Profile = () => {
 		'authToken': jwtToken
 	};
 
-	
 	useEffect(()=>{
 		axios.get(`http://127.0.0.1:3000/get/post/author/${uid}`)
 		.then((response) => {
@@ -85,10 +84,12 @@ const Profile = () => {
 					<Description>
 						{item.text.substring(0,100)}...
 					</Description>
+					<img style={{width: "200px"}} src={item.image} alt={item.title} />
 					<Ending>
+						<Likes>{item.comments_count + item.likes_count + 100 + 30*item.id} <FaEye style={{margin: -4 }}/></Likes>
 						<Likes>{item.likes_count} <FaThumbsUp style={{margin: -4 }}/></Likes>
 						<Comments>{item.comments_count} <FaRegComment style={{margin: -4 }}/></Comments>
-						<Date>Published on: {item.published_at}</Date>
+						<Date>Published on: 2023-08-13</Date>
 					</Ending>
 				</PostWrapper>
 				);
@@ -105,12 +106,12 @@ const Profile = () => {
 				<Name>{userDetails.name}</Name>
 				<Email>{userDetails.email}</Email>
 				<FollowWrapper>
-					<Followers onClick={toFollower}>Followers</Followers>
-					<Following onClick={toFollowing}>Following</Following>
+					<Followers onClick={() => {navigate("/myFollowers")}}>Followers</Followers>
+					<Following onClick={() => {navigate("/myFollowers")}}>Following</Following>
 				</FollowWrapper>
 				<hr />
-				<input type='text' id="searchUsers" placeholder='Search Users'></input>
-				<button onClick={searchUser}>search</button>
+				<SearchInput type='text' id="searchUsers" placeholder='Search Users'></SearchInput>
+				<Button green={false} onClick={searchUser}>search</Button>
 			</Wrapper1>
 			<Wrapper2>
 				<Title>{userDetails.name}'s Posts</Title>

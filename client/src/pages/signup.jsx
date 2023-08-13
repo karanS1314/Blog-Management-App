@@ -38,7 +38,7 @@ const Signup = () => {
         password: '',
       });
       setErrors(validate(formData));
-      navigate('/');
+      navigate('/signin');
     } catch (error) {
       // Handle any errors that occur during sign-up
       console.error('Sign-up failed:', error);

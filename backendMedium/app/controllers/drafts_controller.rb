@@ -6,9 +6,8 @@ class DraftsController < ApplicationController
         @draft = Draft.new(JSON.parse(request.body.read))
         author_id =  @current_author_id
         @draft.author_id = author_id
-        topic = Topic.find(draft_params["topic_id"])
-        
-        @draft.topic_name = topic.name
+        @draft.topic = draft_params["topic"]
+        @draft.reading_time = reading_time(draft_params["text"])
         if @draft.save
           render json: {message:"Draft Has been created"}, status: :created
         else

@@ -13,7 +13,14 @@ export const Wrapper1 = styled.div`
     grid-area: col1;
     padding: 2rem;
 `;
-
+export const SearchInput = styled.input`
+    padding: 10px 15px;
+    border: 1px solid grey;
+    width: 8rem;
+    background-color: white;
+    border-radius: 5px;
+    transition: .2s;
+`
 export const Wrapper2 = styled.div`
   background-color: white;
   flex-direction: column;
@@ -132,7 +139,8 @@ export const Button = styled.button`
   border-radius: 5px;
   background: #5be505;
   color: white;
-    border: none;
+  border: none;
+  background: ${({ green }) => (green ? "#5be505" : "black")};
 `
 
 export const InputWrapper = styled.div`

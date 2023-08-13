@@ -138,15 +138,14 @@ export const NavBtnLink1 = styled(LinkR)`
   border: 0.2px solid black;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
   float: left;
 
   &:hover {
-    transition: all 0.2s ease-in-out;
     background: #12f84d;
     color: #f9f9f9;
     border: none;
+    border: 0.2px solid #12f84d;
   }
 `;
 
@@ -184,4 +183,5 @@ export const Image = styled.img`
   width: 40px;
   border-radius: 300px;
   margin-right: 2rem;
+  cursor: pointer;
 `;

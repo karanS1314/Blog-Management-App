@@ -1,4 +1,3 @@
-
 import {Link } from "react-router-dom";
 import {RTopic , Topic, Container, Wrapper1, SearchInput, Wrapper2, PostWrapper , Starting  ,Heading , ReadTime,  Title , Description , Ending , Likes , Comments , Date} from "./FeedElements";
 import {useState , useEffect} from "react";
@@ -48,6 +47,36 @@ const Feed = () => {
         setShowTop(false);
     }
   }
+
+  const compareLikes = (postA, postB) => {
+    return postB.likes_count - postA.likes_count;
+  };
+  const compareComments = (postA, postB) => {
+    return postB.comments_count - postA.comments_count;
+  };
+  const compareViews = (postA, postB) => {
+    return (postB.comments_count + postB.likes_count + 30 * postB.id) - (postA.comments_count + postA.likes_count + 30 * postA.id);
+  };
+  const sortby = () => {
+    const sort = document.getElementById("sort").value;
+    console.log(sort);
+    if(sort == 1){
+    console.log(postArr);
+    const sortedarray = [...postArr].sort(compareLikes);
+        setpostArr(sortedarray);
+    }
+    else if(sort == 2){
+        console.log(postArr);
+        const sortedarray = [...postArr].sort(compareComments);
+        setpostArr(sortedarray);
+    }
+    else if(sort == 3){
+        console.log(postArr);
+        const sortedarray = [...postArr].sort(compareViews);
+        setpostArr(sortedarray);
+    }
+  }
+
   const RenderFeed = () =>{
     let postAr = postArr;
     if(input !== ""){
@@ -110,6 +139,15 @@ const Feed = () => {
                     <hr />
                     <button style={{cursor:"pointer"}}onClick={() => setRTopic("")} >Show All Posts</button>
                 </div>
+            </div>
+            <div>
+                <label htmlFor="sort">Sort by</label>
+                <select name="sort" id="sort">
+                    <option value="1">Most Likes</option>
+                    <option value="2">Most Commented</option>
+                    <option value="3">Most Viewed</option>
+                </select>
+                <button id="sortBtn" onClick={sortby}>Sort</button>
             </div>
         </Wrapper1>
         <Wrapper2>

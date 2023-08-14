@@ -23,7 +23,7 @@ const Routing = () => {
       <Route path="/post/:postId" exact element={<Post />} />
       <Route path="/profile/:uid" exact element={<Profile />} />
       <Route path="/myDetails" exact element={<MyDetails />} />
-      {/* <Route path="/post/:postId/edit" element={<EditPost />} /> */}
+      <Route path="/post/:postId/edit" element={<EditPost />} />
       <Route path="/myDrafts" element={<Draft />} />
       <Route path="/savedPosts" exact element={<SavedPost />} />
       <Route path="/payment" exact element={<Payment />} />
